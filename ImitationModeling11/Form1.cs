@@ -115,8 +115,8 @@ namespace ImitationModeling9
                 chi += (stat[i] * stat[i]) / (probs[i] * numExperiments);
             }
             chi -= numExperiments;
-            chiLabel.Text = String.Format("{0} {1} 11.07 is {2}",
-                         chi, (chi > 11.07) ? '>' : '<', (chi > 11.07) ? "true" : "false");            
+            chiLabel.Text = String.Format("{0} > 11.07 is {2}",
+                         chi, (chi > 11.07) ? "true" : "false");            
         }
     }
 }
