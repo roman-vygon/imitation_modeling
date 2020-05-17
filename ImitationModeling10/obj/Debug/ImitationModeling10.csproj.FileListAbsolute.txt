@@ -1,0 +1,9 @@
+C:\Users\Admin\source\repos\ImitationModeling10\ImitationModeling10\bin\Debug\ImitationModeling10.exe.config
+C:\Users\Admin\source\repos\ImitationModeling10\ImitationModeling10\bin\Debug\ImitationModeling10.exe
+C:\Users\Admin\source\repos\ImitationModeling10\ImitationModeling10\bin\Debug\ImitationModeling10.pdb
+C:\Users\Admin\source\repos\ImitationModeling10\ImitationModeling10\obj\Debug\ImitationModeling10.csprojAssemblyReference.cache
+C:\Users\Admin\source\repos\ImitationModeling10\ImitationModeling10\obj\Debug\ImitationModeling10.Form1.resources
+C:\Users\Admin\source\repos\ImitationModeling10\ImitationModeling10\obj\Debug\ImitationModeling10.Properties.Resources.resources
+C:\Users\Admin\source\repos\ImitationModeling10\ImitationModeling10\obj\Debug\ImitationModeling10.csproj.GenerateResource.cache
+C:\Users\Admin\source\repos\ImitationModeling10\ImitationModeling10\obj\Debug\ImitationModeling10.exe
+C:\Users\Admin\source\repos\ImitationModeling10\ImitationModeling10\obj\Debug\ImitationModeling10.pdb
