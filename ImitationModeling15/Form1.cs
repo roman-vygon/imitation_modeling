@@ -59,7 +59,7 @@ namespace ImitationModeling15
         private double generate_tau(int state)
         {
             double t = Math.Log(rnd.NextDouble()) / q[state, state] * 24;
-            Debug.WriteLine(t);
+            
             return t;
         }
         private void button1_Click(object sender, EventArgs e)
@@ -99,5 +99,60 @@ namespace ImitationModeling15
                 chart1.Series[0].Points.Add(state + 1);
             ++time;
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            tickTimer.Stop();
+            chart1.Series[0].Points.Clear();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            int current_state = 0;
+            double T = Convert.ToDouble(timeTextBox.Text);
+            int N = Convert.ToInt32(numTextBox.Text);
+            while (T > 0)
+            {
+                T -= generate_tau(current_state);
+                double[] p = new double[3];
+                for (int j = 0; j < 3; ++j)
+                {
+                    if (state == j)
+                        p[j] = 0;
+                    else
+                        p[j] = -1 * q[state, j] / q[state, state];
+                }
+                current_state = simulate_experiment(p);
+            }
+            double[] t = { 0.0, 0.0, 0.0};
+
+            for (int _ = 0; _ < N; ++_)
+            {
+                t[current_state] += generate_tau(current_state);
+                double[] p = new double[3];
+                for (int j = 0; j < 3; ++j)
+                {
+                    if (current_state == j)
+                        p[j] = 0;
+                    else
+                        p[j] = -1 * q[current_state, j] / q[current_state, current_state];
+                }
+                current_state = simulate_experiment(p);
+            }
+            double[] final_p = { (6.0 * 20.0)/(5.0 * 63.0), (19.0 * 20.0) / (20.0 * 63.0), (1.0 * 20.0) / (1.0 * 63.0)};
+
+            var sum = t.Sum();
+            t = t.Select(d => d / sum).ToArray();
+
+            double mse = 0;
+            for (int i =0; i < 3; ++i)
+            {
+                mse += (final_p[i] - t[i])* (final_p[i] - t[i]);
+            }
+            mse /= 3;
+            label3.Text = String.Format("MSE: {0}", mse);
+
+        }
+
     }
 }
