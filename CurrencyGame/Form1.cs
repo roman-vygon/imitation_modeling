@@ -15,10 +15,21 @@ namespace currencyExchange
         Random rand = new Random();        
         private double money_amount = 10000.0;
         private string current = "RUB";
+
         private double eurToRub = 70.0;
         private double usdToRub = 60.0;        
+
         private int time = 0;
         const double k = 0.02;
+
+        double muEurToRub = 0.1;
+        double muUsdToRub = 0.1;
+
+        double sigmaEurToRub = 0.5;
+        double sigmaUsdToRub = 0.5;
+
+        double wEurToRub = 0.0;
+        double wUsdToRub = 0.0;
 
         public Form1()
         {            
@@ -52,6 +63,20 @@ namespace currencyExchange
             }
         }        
 
+        double get_next_brownian(double x, double mu, double sigma, double w)
+        {
+            return x*Math.Exp((mu - (sigma * sigma) / 2) * (1) + sigma * w);
+        }
+        private double normal_third_method()
+        {
+            double alpha1 = rand.NextDouble();
+            double alpha2 = rand.NextDouble();
+            return Math.Sqrt(-2 * Math.Log(alpha1)) * Math.Cos(2 * Math.PI * alpha2);
+        }
+        double get_next_wiener(double w)
+        {
+            return w + normal_third_method();
+        }
         private void gameTimer_Tick(object sender, EventArgs e)
         {
             updateCurrencyLabels();
@@ -59,10 +84,18 @@ namespace currencyExchange
             time++;
 
             double x = rand.NextDouble();
-            eurToRub = Math.Round(eurToRub * (1 + k * (x - 0.5)),2);
 
-            x = rand.NextDouble();
-            usdToRub = Math.Round(usdToRub * (1 + k * (x - 0.5)),2);
+
+            wEurToRub = get_next_wiener(wEurToRub);
+            wUsdToRub = get_next_wiener(wUsdToRub);
+
+            eurToRub = get_next_brownian(eurToRub, muEurToRub, sigmaEurToRub, wEurToRub);
+
+            usdToRub = get_next_brownian(usdToRub, muUsdToRub, sigmaUsdToRub, wUsdToRub);
+
+
+
+            
 
             currencyChart.Series[0].Points.AddXY(time, eurToRub);
             currencyChart.Series[1].Points.AddXY(time, usdToRub);
