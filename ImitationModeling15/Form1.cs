@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace ImitationModeling15
 {
@@ -19,22 +20,53 @@ namespace ImitationModeling15
         int state = 0;
         string[] states = { "Ясно", "Облачно", "Пасмурно" };
         double tau = 0;
+        double time = -1;
         public Form1()
         {
-            InitializeComponent();            
+            InitializeComponent();
+
+            CustomLabel label = new CustomLabel();
+
+            label.FromPosition = 0.0;
+            label.ToPosition = 2.0;
+            label.Text = "Ясно";
+            label.RowIndex = 0;
+
+            chart1.ChartAreas[0].AxisY.CustomLabels.Clear();
+            chart1.ChartAreas[0].AxisY.CustomLabels.Add(label);
+
+            label = new CustomLabel();
+
+            label.FromPosition = 1.0;
+            label.ToPosition = 3.0;
+            label.Text = "Облачно";
+            label.RowIndex = 0;
+
+            
+            chart1.ChartAreas[0].AxisY.CustomLabels.Add(label);
+
+            label = new CustomLabel();
+
+            label.FromPosition = 2.0;
+            label.ToPosition = 4.0;
+            label.Text = "Пасмурно";
+            label.RowIndex = 0;
+
+            chart1.ChartAreas[0].AxisY.CustomLabels.Add(label);
 
         }
 
         private double generate_tau(int state)
         {
-            return Math.Log(rnd.NextDouble()) / q[state, state];
+            double t = Math.Log(rnd.NextDouble()) / q[state, state] * 24;
+            Debug.WriteLine(t);
+            return t;
         }
         private void button1_Click(object sender, EventArgs e)
         {
             tickTimer.Start();
             state = 0;
-            tau = Math.Log(rnd.NextDouble()) / q[state, state];
-            chart1.Series[0].Points.Add(state+1);
+            tau = Math.Log(rnd.NextDouble()) / q[state, state];            
         }
         private int simulate_experiment(double[] probs)
         {
@@ -61,9 +93,11 @@ namespace ImitationModeling15
                 int next_state = simulate_experiment(p);
                 tau = generate_tau(next_state);
 
-                state = next_state;                
-                chart1.Series[0].Points.Add(state+1);
+                state = next_state;                             
             }
+            if (time % 24 == 0)
+                chart1.Series[0].Points.Add(state + 1);
+            ++time;
         }
     }
 }
