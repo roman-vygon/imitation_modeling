@@ -22,11 +22,11 @@ namespace currencyExchange
         private int time = 0;
         const double k = 0.02;
 
-        double muEurToRub = 0.1;
-        double muUsdToRub = 0.1;
+        double muEurToRub = 0;
+        double muUsdToRub = 0;
 
-        double sigmaEurToRub = 0.5;
-        double sigmaUsdToRub = 0.5;
+        double sigmaEurToRub = 0.013;
+        double sigmaUsdToRub = 0.01;
 
         double wEurToRub = 0.0;
         double wUsdToRub = 0.0;
