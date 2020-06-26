@@ -9,10 +9,11 @@ namespace ImitationModeling18
     class Operator : Agent
     {
         public bool enabled = false;
-        double lambda = 1;
+        double lambda = 1;        
         Random rnd;
         int num;
         Queue q;
+        double nextEvent = Double.PositiveInfinity;
 
         private double exponentialRV(double lambda)
         {
@@ -27,19 +28,26 @@ namespace ImitationModeling18
             this.num = num;
         }
 
-        public double nextEventTime(double t)
+        public double NextEventTime(double t)
         {
+            return nextEvent;
             if (!enabled)
                 return Double.PositiveInfinity;
-
-            return t + exponentialRV(lambda);
-        }
-        public void processEvent()
-        {            
-            if (q.cnt > 0)            
-                q.cnt--;
             else
-                enabled = false;
+                return t + exponentialRV(lambda);
+        }
+        
+        public void processCustomer(double t)
+        {
+            nextEvent = t + exponentialRV(lambda);
+            enabled = true;            
+        }
+        public void processEvent(double t)
+        {
+            --q.cnt_all;
+            enabled = false;
+            nextEvent = Double.PositiveInfinity;
+            q.giveCustomers(t);
         }
         public override string ToString()
         {

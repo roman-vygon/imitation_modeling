@@ -9,7 +9,8 @@ namespace ImitationModeling18
     interface Agent
     {
 
-        double nextEventTime(double t);
-        void processEvent();
+         
+        double NextEventTime(double t);
+        void processEvent(double t);
     }
 }

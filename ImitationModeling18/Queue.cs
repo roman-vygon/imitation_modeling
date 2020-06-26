@@ -9,6 +9,10 @@ namespace ImitationModeling18
     class Queue : Agent
     {
         double lambda = 1;
+        public double t = 0;
+        public int cnt_all = 0;
+        public int cnt = 0;
+        public double nextEvent;
         Random rnd;
         public List<Operator> ops = new List<Operator>();
 
@@ -26,22 +30,34 @@ namespace ImitationModeling18
         {
             ops.Add(op);
         }
-        public int cnt = 0;
-        public double nextEventTime(double t)
+        
+        public double NextEventTime(double t)
         {
-            return t + exponentialRV(lambda);
+            return nextEvent;
+            //return t + exponentialRV(lambda);
         }
-        public void processEvent()
+        public void giveCustomers(double t)
         {
-            cnt += 1;
-            foreach (Operator op in ops)
+            if (cnt > 0)
             {
-                if (!op.enabled)
+                foreach (Operator op in ops)
                 {
-                    op.enabled = true;
-                    cnt--;
+                    if (!op.enabled)
+                    {                        
+                        cnt--;
+                        op.processCustomer(t);                        
+                        if (cnt == 0)
+                            break;
+                    }
                 }
             }
+        }
+        public void processEvent(double t)
+        {
+            ++cnt;
+            ++cnt_all;
+            giveCustomers(t);
+            nextEvent = t + exponentialRV(lambda);
         }
         public override string ToString()
         {
