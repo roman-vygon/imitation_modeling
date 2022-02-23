@@ -1,0 +1,8 @@
+C:\Users\Admin\source\repos\ImitationModeling9_10\ImitationModeling9_10\obj\Debug\ImitationModeling9_10.Form1.resources
+C:\Users\Admin\source\repos\ImitationModeling9_10\ImitationModeling9_10\obj\Debug\ImitationModeling8.csproj.GenerateResource.cache
+C:\Users\Admin\source\repos\ImitationModeling9_10\ImitationModeling9_10\obj\Debug\ImitationModeling9_10.exe
+C:\Users\Admin\source\repos\ImitationModeling9_10\ImitationModeling9_10\obj\Debug\ImitationModeling9_10.pdb
+C:\Users\Admin\source\repos\ImitationModeling9_10\ImitationModeling9_10\bin\Debug\ImitationModeling9_10.exe.config
+C:\Users\Admin\source\repos\ImitationModeling9_10\ImitationModeling9_10\bin\Debug\ImitationModeling9_10.exe
+C:\Users\Admin\source\repos\ImitationModeling9_10\ImitationModeling9_10\bin\Debug\ImitationModeling9_10.pdb
+C:\Users\Admin\source\repos\ImitationModeling9_10\ImitationModeling9_10\obj\Debug\ImitationModeling9_10.Properties.Resources.resources
